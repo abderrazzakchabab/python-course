@@ -46,6 +46,26 @@ export default function ChapterPage({ params }: { params: { id: string } }) {
         </section>
       )}
 
+      {c.exercises && c.exercises.length > 0 && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Exercises</h2>
+          <div className="space-y-3">
+            {c.exercises.map((ex, i) => (
+              <details key={i} className="group p-5 rounded-2xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900/70 transition-colors">
+                <summary className="cursor-pointer text-slate-200 font-medium list-none flex items-start gap-3">
+                  <span className="text-accent2 font-mono text-sm mt-0.5">Q{i + 1}.</span>
+                  <span className="flex-1">{ex.question}</span>
+                  <span className="text-xs text-slate-500 group-open:hidden">show answer</span>
+                  <span className="text-xs text-slate-500 hidden group-open:inline">hide</span>
+                </summary>
+                {ex.hint && <div className="mt-3 text-sm text-slate-400 italic">Hint: {ex.hint}</div>}
+                <div className="mt-3 pl-7 text-sm text-slate-300 border-l border-accent/30 whitespace-pre-wrap">{ex.answer}</div>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
       {c.lab && (
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">Lab</h2>

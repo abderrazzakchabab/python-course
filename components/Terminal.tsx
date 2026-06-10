@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 const PYODIDE_VERSION = "0.26.2";
 const PYODIDE_BASE = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`;
-const KNOWN_PACKAGES = ["pandas", "numpy", "micropip"];
+const KNOWN_PACKAGES = ["pandas", "numpy", "micropip", "pydantic"];
 
 const EXPECTED: Record<string, { contains?: string[]; equals?: string; hint: string }> = {
   "hello-python":   { equals: "Hello, Python!", hint: "Stdout must be exactly `Hello, Python!`" },
@@ -18,6 +18,13 @@ const EXPECTED: Record<string, { contains?: string[]; equals?: string; hint: str
   "evens-gen":      { contains: ["[2, 4, 6, 8, 10]"], hint: "Should print `[2, 4, 6, 8, 10]`." },
   "asyncio-gather": { contains: ["[0, 1, 2]"], hint: "asyncio.gather should yield `[0, 1, 2]`." },
   "pandas-groupby": { contains: ["food", "rent"], hint: "Sum-by-category should mention both `food` and `rent`." },
+  "pydantic-item":  { contains: ["Apple"], hint: "Should output JSON containing `Apple`." },
+  "json-roundtrip": { contains: ["42"], hint: "Print the decoded `x` field, which is 42." },
+  "numpy-rowsum":   { contains: ["4."], hint: "Row sums of a 3x4 ones matrix is `[4. 4. 4.]`." },
+  "duckdb-groupby": { contains: ["food", "rent"], hint: "Output must mention both `food` and `rent` with their totals." },
+  "pandas-corr":    { contains: ["1.0"], hint: "A correlation matrix has 1.0 on the diagonal." },
+  "ml-accuracy":    { contains: ["1.0"], hint: "Predict-sign rule on a perfectly separated dataset should give 1.0 accuracy." },
+  "capstone-accuracy": { contains: ["1.0"], hint: "Above-mean rule on the toy data should hit 1.0 accuracy." },
   "free-play":      { hint: "Free-play mode — no verifier. Run anything you want." }
 };
 
